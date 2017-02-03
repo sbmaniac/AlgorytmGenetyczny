@@ -15,6 +15,7 @@ public class PeakValue {
     private int totalIterationNumber;
     private int maxIndyvidualFitnessValue;
 
+
     private Individual[] populationArray;
     Random generator = new Random();
 
@@ -29,6 +30,7 @@ public class PeakValue {
         this.maxIterationNumber = maxIterationNumber;
         this.totalIterationNumber = 0;
         maxIndyvidualFitnessValue = 0;
+
         populationArray = new Individual[population];
 
         for (int i = 0; i < populationArray.length; i++) {
@@ -47,9 +49,33 @@ public class PeakValue {
     }
 
     private void startIterations() {
-        int localIterationNumber = 0;
+        float[] rouletteArrayFitness = new float[populationArray.length];
+        float[] rouletteArrayNewGenes = new float[populationArray.length];
+        int fitnessRateSum = 0;
+        float probabilitySum = 0;
+        for (int i = 0; i < maxIterationNumber; i++) {
 
-       
+
+            fitnessRateSum = calculateFitnessSum();
+            for (int j = 0; j < populationArray.length; j++) {
+                rouletteArrayFitness[j] = probabilitySum + (populationArray[j].getFitnessRate() / fitnessRateSum);
+            }
+
+            for (int j = 0; j < populationArray.length; j++) {
+                rouletteArrayNewGenes[j] = generator.nextFloat();
+                for (int k = 0; k < populationArray.length; k++) {
+                    if (k == 0) {
+                        if (0 <= rouletteArrayNewGenes[j] && rouletteArrayNewGenes[j] <= rouletteArrayFitness[j]) {
+
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+
     }
 
 
@@ -62,6 +88,14 @@ public class PeakValue {
     public void findMaxIndyvidual() {
 
 
+    }
+
+    public int calculateFitnessSum() {
+        int fitnessRateSum = 0;
+        for (int i = 0; i < populationArray.length; i++) {
+            fitnessRateSum += populationArray[i].getFitnessRate();
+        }
+        return fitnessRateSum;
     }
 
 }
