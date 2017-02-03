@@ -1,5 +1,7 @@
 package com.pilecki;
 
+import java.util.Random;
+
 /**
  * Created by sbmaniac on 03.02.2017.
  */
@@ -16,12 +18,25 @@ public class Individual {
 
     public void setGeneDec(int geneDec) {
         this.geneDec = geneDec;
-        setGeneAfterGenDecModif(geneDec);
+        setGeneBinAfterGenDecModif(geneDec);
     }
 
-    private void setGeneAfterGenDecModif(int geneDec) {
+    private void setGeneBinAfterGenDecModif(int geneDec) {
         geneBin = convertFromDecToBin(geneDec);
 
+    }
+
+    public String getGeneBin() {
+        return geneBin;
+    }
+
+    public void setGeneBin(String geneBin) {
+        this.geneBin = geneBin;
+        setGeneDecAfterGenBinModif(geneBin);
+    }
+
+    private void setGeneDecAfterGenBinModif(String geneBin) {
+        geneDec = convertFromBinToDec(geneBin);
     }
 
     public int getFitnessRate() {
@@ -31,6 +46,13 @@ public class Individual {
     public void setFitnessRate(int fitnessRate) {
         this.fitnessRate = fitnessRate;
     }
+
+    public void randGenes() {
+        Random generator = new Random();
+        setGeneDec(generator.nextInt(32));
+    }
+
+
 
     public String convertFromDecToBin(int value) {
         String resultWithFiveBits = "";
